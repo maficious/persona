@@ -1,187 +1,134 @@
-@import "./fonts/ptsansweb/PTC55F_stylesheet.css";
-@import "./fonts/ptsansweb/PTS55F_stylesheet.css";
-@import "./fonts/ptmonoweb/PTM55F_stylesheet.css";
+@import "fonts/css/ibm-plex.min.css";
 
 @pc: ~"screen and (min-width: 1000px)";
 @bg: #f9f8f7;
+@yellow: rgb(255, 196, 0);
 
-.center-text {
-    text-align: center
-}
+@sans: 'IBM Plex Sans', sans-serif;
+@serif: 'IBM Plex Serif', serif;
+@mono: 'IBM Plex Mono', monospace;
+
+// &:extend(.vmargin-3rem)
 
 html {
     box-sizing: border-box;
-    font-family: 'PTSansRegular', Arial, Helvetica, sans-serif;
-
+    font-family: @sans;
     background-color: @bg;
-    color: rgb(46, 46, 46);
-
-    font-size: 10pt;
-}
-
-small {
-    font-size: smaller;
-}
-
-body {
-    margin: auto;
-    min-height: 100vh;
-    max-width: 100%;
-
-    display: flex;
-    flex-flow: column;
-
-    align-items: center;
-    
-    @media @pc {
-        justify-content: center;
-        max-width: 70%;
-    }
-
-    main {
-        width: 100%;
-        &:extend(.vmargin-3rem);
-    }
 }
 
 *, *::after, *::before {
-    box-sizing: border-box;
-}
-
-.vmargin-3rem {
-    margin: 3rem 0;
+    box-sizing: inherit;
 }
 
 header {
-    &:extend(.center-text, .vmargin-3rem);
-    
-    img {
-        height: 50vw;
-        width: $height;
-        border: 1px solid darken(@bg, 10%);
-        margin-bottom: 1rem;
-        
-        @media @pc {
-            height: 13rem;
-            width: $height;
-        }
-        
-        object-fit: cover;
-        object-position: 0 -20px;
+    margin-bottom: 5rem;
+    padding: 20vh 10%;
+    border-bottom: 1px solid darken(@bg, 10%);
+
+    h1, p {
+        display: inline-block;
+        padding: 10px 1.2rem;
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 6rem;
+    }
+
+    p {
+        font-size: 32px;
+        font-family: @mono;
+        // font-style: italic;
+        font-weight: 900;
+        background-color: @yellow;
     }
 }
 
-main {
-    nav {
-        &.stuff-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            width: 90%;
-            margin: auto;
+h1 {
+    padding: 10px 20px;
+    font-family: @serif;
+    background-color: black;
+    color: difference(black, @bg);
+    font-weight: 100;
+    display: inline-block;
+}
 
-            section {
-                margin: 1rem 0;
+h1:not(header h1) { font-size: 64px; margin-bottom: 18px; }
+h2 { font-size: 48px; margin-bottom: 18px; }
+h3 { font-size: 36px; margin-bottom: 18px; }
 
-                h1 {
-                    font-family: 'PTSansCaption', Arial, Helvetica, sans-serif;
-                    font-size: 1.5rem;
-                    margin-bottom: .5rem;
-                }
-
-                ul {
-                    &.links-list {
-                        li {
-                            margin: .6rem 0;
-                            &::before {
-                                content: '🔗';
-                                margin-right: .4rem;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            @media @pc {
-                grid-template-columns: 1fr 1fr 1fr;
-                width: 75%;
-
-                section {
-                    width: auto;
-                    margin: 1rem;
-                }
-            }
-        }
-    }
+section {
+    margin: 5rem 0;
+    font-size: 24px;
 }
 
 footer {
-    &:extend(.center-text, .vmargin-3rem);
+    margin-top: 5rem;
+    padding: 20vh 10%;
+    border-top: 1px solid darken(@bg, 10%);
 
     ul {
-        &.minilist {
-            margin-top: .2rem;
+        li {
+            display: inline-block;
         }
     }
 }
 
 ul {
-    &.minilist {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-    }
-}
+    width: fit-content;
 
-span {
-    &.mono {
-        font-family: 'PTMonoRegular';
-    }
-}
+    li {
+        background-color: darken(@bg, 10%);
 
-a {
-    color: rgb(255, 142, 142);
-    cursor: pointer;        
-    border-bottom: 1px solid transparent;
-    text-decoration: none;
-    transition: border-bottom-color .1s ease;
-    
-    &:hover {
-        border-bottom-color: $color;
-    }
+        a {
+            display: inline-block;
+            width: 100%;
+            text-decoration: none;
+            font-family: @mono;
+            padding: 0 10px 0 0;
+            cursor: pointer;
 
-    &[href] {    
-        color: dodgerblue;
-
-        &:visited {
-            color: lighten(dodgerblue, 15%);
-
-            &:hover {
-                border-bottom-color: $color;
+            &::before {
+                display: inline-block;
+                padding: 10px 10px;
+                margin-right: 10px;
+                content: 'Disabled';
+                color: black;
+                background-color: darken(@bg, 12%);
+            }
+            
+        }
+        
+        a[href] {
+            padding: 10px;
+            color: inherit;
+            &::before {
+                display: none;
             }
         }
 
-        &:hover {
-            border-bottom-color: $color;
+        a[css-prefix] {
+            padding: 0 10px 0 0;
+            &::before {
+                display: inline-block;
+                padding: 10px 10px;
+                margin-right: 10px;
+                content: attr(css-prefix);
+                color: black;
+                background-color: @yellow;
+            }
+        }
+
+        a[href]:hover {
+            background-color: darken(@bg, 15%);
         }
     }
 }
 
-h1.error {
-    color: red;
-    font-size: 24pt;    
+body {
+    min-height: 100vh;
 }
 
-p {
-    width: 50%;
+main {
+    width: 80%;
     margin: auto;
-    line-height: 1.2;
-
-    &.error {
-        font-size: 14pt;
-        text-align: center;
-    }
 }
